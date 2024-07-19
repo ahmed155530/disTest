@@ -1,0 +1,107 @@
+<div class="main-content">
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <figure class="highcharts-figure card card-body">
+                    <div class="row">
+                        <button mat-mini-fab color="primary"
+                            style="margin-inline-start: 90%;"
+                            (click)="GetZoneCounts()"
+                            matTooltip="{{'buttons.refresh'|translate}}">
+                            <span
+                                class="material-symbols-outlined">sync</span>
+                        </button>
+                    </div>
+                    <div id="pie-chart"></div>
+                </figure>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
+                <figure class="highcharts-figure card card-body">
+                    <div class="row">
+
+                        <button mat-mini-fab color="primary"
+                            style="margin-inline-start: 90%;"
+                            (click)="GetKPIsZoneCounts()"
+                            matTooltip="{{'buttons.refresh'|translate}}">
+                            <span
+                                class="material-symbols-outlined">sync</span>
+                        </button>
+
+                    </div>
+                    <div id="kpi-chart"></div>
+                </figure>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="title">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-info row">
+                        <div class="col-6 card-title">
+                            <h4 class="card-title">
+                                {{title|translate}}
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive"
+                            style="text-align: start;">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th
+                                        *ngFor="let column of displayedColumns;">
+                                        {{column|translate}}
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr
+                                        *ngFor="let data of dataSource; let i=index">
+                                        <td>
+                                            {{i+1}}
+                                        </td>
+                                        <td>
+                                            {{data.name}}
+                                        </td>
+                                        <td>
+                                            {{data.companyName}}
+                                        </td>
+                                        <td>
+                                            {{data.idNumber}}
+                                        </td>
+                                        <td>
+                                            {{data.phoneNumber}}
+                                        </td>
+                                        <td>
+                                            {{data.countryName}}
+                                        </td>
+                                        <td>
+                                            {{data.locationName}}
+                                        </td>
+                                        <td>
+                                            {{data.registrationDate|date :
+                                            'medium':'':'en-US' }}
+                                        </td>
+                                        <td>
+                                            {{GetStatusName(data.status)|translate}}
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                            <mat-paginator (page)="handlePaginator($event)"
+                                [length]="totalCount" showFirstLastButtons
+                                [pageSize]="MatPaginatorSize?.pageSize"
+                                [pageSizeOptions]="MatPaginatorSize?.pageSizeOptions"
+                                aria-label="Select page">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
